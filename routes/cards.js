@@ -16,7 +16,7 @@ router.post('/card', (req, res) => {
   }
 
   // Validaciones básicas (simuladas)
-  if (!cardHolder || cardHolder.trim() === '') {
+  if ( cardHolder.trim() === '') {
     return res.status(400).json({ success: false, message: 'Titular inválido' });
   }
 
@@ -34,10 +34,13 @@ router.post('/card', (req, res) => {
 
   //guardar tarjeta (memoria ram)
   const card = {
+    id: user.cards.length + 1,
     cardHolder,
     cardNumber,
     expiryDate,
-    cvv
+    cvv,
+    last4: cardNumber.slice(-4),
+    brand: 'VISA' // Simulación fija
   };
   user.cards.push(card);
 
@@ -45,7 +48,7 @@ router.post('/card', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Tarjeta ingresada correctamente',
-    cards: user.cards
+    card: card
   });
 });
 
