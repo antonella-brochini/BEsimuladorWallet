@@ -40,7 +40,8 @@ router.post('/card', (req, res) => {
     expiryDate,
     cvv,
     last4: cardNumber.slice(-4),
-    brand: 'VISA' // Simulación fija
+    brand: 'VISA' ,
+    isPrimary: false,
   };
   user.cards.push(card);
 
@@ -69,5 +70,27 @@ router.get('/cards', (req, res) => {
 
   res.status(200).json({ success: true, cards: user.cards });
 });
+
+router.delete('/card/:id', (req, res) => {
+ const userId = Number(req.header('X-User-Id'));
+  const { id } = req.params;
+  if (!userId) {
+    return res.status(401).json({ error: 'Usuario no autenticado' });
+  }
+
+  const user = users.find(u => u.id === userId);
+  if (!user) {
+    return res.status(404).json({ error: 'Usuario no encontrado' });
+  }
+   const cardIndex = user.cards.findIndex(c => String(c.id) === id);
+
+  if (cardIndex === -1) {
+    return res.status(404).json({ error: 'Tarjeta no encontrada o no pertenece al usuario' });
+  }
+
+  user.cards.splice(cardIndex, 1);
+  return res.json({ success: true, message: 'Tarjeta eliminada correctamente' });
+});
+
 
 module.exports = router;
