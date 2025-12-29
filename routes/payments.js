@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { users }= require('../data/users');
+const  users = require('../data/users');
 const { transactions } = require('../data/transactions');
 
 router.post('/wallet', (req, res) => {
