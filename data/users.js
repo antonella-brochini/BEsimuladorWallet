@@ -14,7 +14,7 @@ const users = [
         brand: "VISA",
         last4: "1111",
         cardHolder:"anotnella",
-        cardNumber:"0002 0000", 
+        cardNumber:"0002 0000 8989 8989", 
         expiryDate:"12/25",
         cvv:"123",
         isPrimary: true,

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const users = require('../data/users');
+const { users }= require('../data/users');
 
 
 router.post('/card', (req, res) => {
